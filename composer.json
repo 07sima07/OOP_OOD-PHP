@@ -1,0 +1,17 @@
+{
+    "name": "max/php-pract",
+    "authors": [
+        {
+            "name": "Max Goncharov",
+            "email": "07sima07@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\":""
+        }
+    }
+}
