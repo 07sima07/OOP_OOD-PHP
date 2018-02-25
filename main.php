@@ -40,42 +40,66 @@ require_once __DIR__."/vendor/autoload.php";
 //print $diamond->getWealthFactor();
 //print $pullution->getWealthFactor();
 
-use Core\Interpreter\InterpreterContext,
-    Core\Interpreter\LiteralExpression,
-    Core\Interpreter\VariableExpression,
-    Core\Interpreter\OperatorExpression\BooleanOrExpression,
-    Core\Interpreter\OperatorExpression\EqualsExpression;
-
-//$context = new InterpreterContext();
-//$literal = new LiteralExpression('Four');
-//$literal->interpret($context);
-//print $context->lookup($literal)."\n";
-//$var = new VariableExpression('input', 'four');
-//$var->interpret($context);
-//print $context->lookup($var)."\n";
-//$newvar = new VariableExpression('input');
-//$newvar->interpret($context);
-//print $context->lookup($newvar)."\n";
+//use Core\Interpreter\InterpreterContext,
+//    Core\Interpreter\LiteralExpression,
+//    Core\Interpreter\VariableExpression,
+//    Core\Interpreter\OperatorExpression\BooleanOrExpression,
+//    Core\Interpreter\OperatorExpression\EqualsExpression;
 //
-//$var->setValue('Five');
-//$var->interpret($context);
-//print $context->lookup($var)."\n";
-//print $context->lookup($newvar);
+////$context = new InterpreterContext();
+////$literal = new LiteralExpression('Four');
+////$literal->interpret($context);
+////print $context->lookup($literal)."\n";
+////$var = new VariableExpression('input', 'four');
+////$var->interpret($context);
+////print $context->lookup($var)."\n";
+////$newvar = new VariableExpression('input');
+////$newvar->interpret($context);
+////print $context->lookup($newvar)."\n";
+////
+////$var->setValue('Five');
+////$var->interpret($context);
+////print $context->lookup($var)."\n";
+////print $context->lookup($newvar);
+//
+//$context = new InterpreterContext();
+//$input = new VariableExpression('input');
+//$statement = new BooleanOrExpression(
+//    new EqualsExpression($input, new LiteralExpression('4') ),
+//    new EqualsExpression($input, new LiteralExpression('Four') )
+//);
+//
+//foreach (array('Four', '4', '52') as $val) {
+//    $input->setValue($val);
+//    print "$val:\n";
+//    $statement->interpret($context);
+//    if($context->lookup($statement)) {
+//        print "matches \n\n";
+//    } else {
+//        print "not matches \n\n";
+//    }
+//}
 
-$context = new InterpreterContext();
-$input = new VariableExpression('input');
-$statement = new BooleanOrExpression(
-    new EqualsExpression($input, new LiteralExpression('4') ),
-    new EqualsExpression($input, new LiteralExpression('Four') )
+use Core\Strategy\Marker\RegexMarker,
+    Core\Strategy\Marker\MatchMarker,
+    Core\Strategy\Marker\MarkLogicMarker,
+    \Core\Strategy\TextQuestion;
+
+$markers = array(
+    new RegexMarker("/F.ve/"),
+    new MatchMarker("Five"),
+    new MarkLogicMarker('$input equals "Five"')
 );
 
-foreach (array('Four', '4', '52') as $val) {
-    $input->setValue($val);
-    print "$val:\n";
-    $statement->interpret($context);
-    if($context->lookup($statement)) {
-        print "matches \n\n";
-    } else {
-        print "not matches \n\n";
+foreach ($markers as $marker) {
+    print get_class($marker). "\n";
+    $question = new TextQuestion("How match rays on Kremlin star", $marker);
+    foreach (array("Five", "Four") as $response) {
+        print "\t: $response: ";
+        if ($question->mark($response)) {
+            print "True! \n";
+        } else {
+            print "False! \n";
+        }
     }
 }
