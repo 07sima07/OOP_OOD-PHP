@@ -29,3 +29,53 @@ require_once __DIR__."/vendor/autoload.php";
 //    print $e->getMessage();
 //}
 
+//use Core\Decorator\TileDecorator\DiamondDecorator,
+//    Core\Decorator\TileDecorator\PullutionDecorator,
+//    Core\Decorator\Plains;
+//
+//$plain = new Plains();
+//$diamond = new DiamondDecorator($plain);
+//$pullution = new PullutionDecorator( new DiamondDecorator($plain) );
+//
+//print $diamond->getWealthFactor();
+//print $pullution->getWealthFactor();
+
+use Core\Interpreter\InterpreterContext,
+    Core\Interpreter\LiteralExpression,
+    Core\Interpreter\VariableExpression,
+    Core\Interpreter\OperatorExpression\BooleanOrExpression,
+    Core\Interpreter\OperatorExpression\EqualsExpression;
+
+//$context = new InterpreterContext();
+//$literal = new LiteralExpression('Four');
+//$literal->interpret($context);
+//print $context->lookup($literal)."\n";
+//$var = new VariableExpression('input', 'four');
+//$var->interpret($context);
+//print $context->lookup($var)."\n";
+//$newvar = new VariableExpression('input');
+//$newvar->interpret($context);
+//print $context->lookup($newvar)."\n";
+//
+//$var->setValue('Five');
+//$var->interpret($context);
+//print $context->lookup($var)."\n";
+//print $context->lookup($newvar);
+
+$context = new InterpreterContext();
+$input = new VariableExpression('input');
+$statement = new BooleanOrExpression(
+    new EqualsExpression($input, new LiteralExpression('4') ),
+    new EqualsExpression($input, new LiteralExpression('Four') )
+);
+
+foreach (array('Four', '4', '52') as $val) {
+    $input->setValue($val);
+    print "$val:\n";
+    $statement->interpret($context);
+    if($context->lookup($statement)) {
+        print "matches \n\n";
+    } else {
+        print "not matches \n\n";
+    }
+}
