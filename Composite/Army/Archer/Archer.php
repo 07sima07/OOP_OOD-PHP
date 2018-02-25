@@ -12,7 +12,7 @@ use Core\Composite\Unit;
 
 class Archer extends Unit
 {
-    function bombardStrength()
+    function bombardStrength() : int
     {
         return 4;
     }

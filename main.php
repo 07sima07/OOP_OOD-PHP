@@ -11,7 +11,8 @@ require_once __DIR__."/vendor/autoload.php";
 
 //use Core\Composite\Army\Army,
 //    Core\Composite\Army\Archer\Archer,
-//    Core\Composite\Army\TroopCarrier;
+//    Core\Composite\Army\TroopCarrier,
+//    \Core\Visitor\TextDumpArmyVisitor;
 //
 //
 //try {
@@ -19,12 +20,11 @@ require_once __DIR__."/vendor/autoload.php";
 //    $army->addUnit(new Archer());
 //    $army->addUnit(new Archer());
 //    $army->addUnit(new Archer());
-//    print count($army->getUnits()) ."\n";
-//    $troop = new TroopCarrier();
-//    $troop->addUnit($army);
-//    print_r($troop->getUnits());
-//    $army->addUnit($troop);
-//    print_r($army->getUnits());
+//
+//    $textDump = new TextDumpArmyVisitor();
+//    $army->accept($textDump);
+//
+//    print $textDump->getText();
 //} catch (\Exception $e) {
 //    print $e->getMessage();
 //}
@@ -104,10 +104,11 @@ require_once __DIR__."/vendor/autoload.php";
 //    }
 //}
 
-use Core\Observer\Login;
+//use Core\Observer\Login;
+//
+//$login = new Login();
+//new \Core\Observer\SecurityMonitor($login);
+//new \Core\Observer\GeneralLogger($login);
+//new \Core\Observer\PartnershipTool($login);
+//$login->notify();
 
-$login = new Login();
-new \Core\Observer\SecurityMonitor($login);
-new \Core\Observer\GeneralLogger($login);
-new \Core\Observer\PartnershipTool($login);
-$login->notify();

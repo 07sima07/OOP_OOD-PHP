@@ -14,7 +14,7 @@ class Army extends CompositeArmy
 {
     private $units = array();
 
-    function bombardStrength()
+    function bombardStrength() : int
     {
         $ret = 0;
         foreach ($this->units as $unit) {

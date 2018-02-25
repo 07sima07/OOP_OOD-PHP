@@ -8,14 +8,24 @@
 
 namespace Core\Composite;
 
+use Core\Visitor\ArmyVisitor;
 
 abstract class CompositeArmy extends Unit
 {
+    private $depth = 0;
     private $units = array();
 
     function getComposite()
     {
         return $this;
+    }
+
+    function accept(ArmyVisitor $visitor)
+    {
+        parent::accept($visitor);
+        foreach ($this->units as $thisUnit) {
+            $thisUnit->accept($visitor);
+        }
     }
 
     function addUnit(Unit $unit)
@@ -27,6 +37,7 @@ abstract class CompositeArmy extends Unit
             throw new \Exception('Maximum 10 units');
         }
         $this->units[] = $unit;
+        $this->setDepth( $this->getDepth() + 1);
     }
 
     function removeUnit(Unit $unit)
@@ -39,8 +50,9 @@ abstract class CompositeArmy extends Unit
         return $this->units;
     }
 
-    function bombardStrength()
+    function bombardStrength() : int
     {
         return 0;
     }
+
 }
