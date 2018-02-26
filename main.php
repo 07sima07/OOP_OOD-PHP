@@ -112,3 +112,11 @@ require_once __DIR__."/vendor/autoload.php";
 //new \Core\Observer\PartnershipTool($login);
 //$login->notify();
 
+use Core\Command\Controller;
+
+$controller = new Controller();
+$context = $controller->getContext();
+$context->addParam('action', 'feedback');
+$context->addParam('username', 'bob');
+$context->addParam('pass', 'tiddles');
+$controller->process();
