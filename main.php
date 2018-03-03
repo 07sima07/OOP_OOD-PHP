@@ -37,7 +37,7 @@ require_once __DIR__."/vendor/autoload.php";
 //$diamond = new DiamondDecorator($plain);
 //$pullution = new PullutionDecorator( new DiamondDecorator($plain) );
 //
-//print $diamond->getWealthFactor();
+//print $diamond->getWealthFactor()."\n";
 //print $pullution->getWealthFactor();
 
 //use Core\Interpreter\InterpreterContext,
@@ -121,3 +121,11 @@ require_once __DIR__."/vendor/autoload.php";
 //$context->addParam('pass', 'tiddles');
 //$controller->process();
 
+//$data = new \Core\DataMapper\VenueMapper();
+//$pavel = new \Core\DataMapper\Venue();
+//$pavel->setLogin('Pavel');
+//$data->insert($pavel);
+//
+//$array = $data->find($pavel->getId());
+//
+//print_r($array);
